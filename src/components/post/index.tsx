@@ -6,36 +6,26 @@ import Footer from "./footer";
 import Comments from "./comments";
 import { PostProps } from "../../helpers/types";
 
-const Post: FC<PostProps> = (
-  { content }: PostProps
-) => {
+const Post: FC<PostProps> = ({ content }: PostProps) => {
 
-  const commentInput = useRef(null);
-  const handleFocus = () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    commentInput.current.focus();
-  }
-
-  console.log("toggleLiked", content.likes);
+  const commentInput = useRef<any>(null);
+  const handleFocus = () =>
+    commentInput?.current?.focus && commentInput.current.focus();
 
   return (
     <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
       <Header username={content.username} />
-      <Image
-        src={content.imageSrc}
-        caption={content.caption}
-      />
+
+      <Image src={content.imageSrc} caption={content.caption} />
+
       <Action
         docId={content.docId}
         totalLikes={content.likes.length}
         likedPhoto={content.userLikedPhoto}
         handleFocus={handleFocus}
       />
-      <Footer
-        caption={content.caption}
-        username={content.username}
-      />
+
+      <Footer caption={content.caption} username={content.username} />
 
       <Comments
         docId={content.docId}
@@ -43,9 +33,9 @@ const Post: FC<PostProps> = (
         posted={content.dateCreated}
         commentInput={commentInput}
       />
-    </div>
 
-  )
+    </div>
+  );
 };
 
 Post.displayName = "Post";

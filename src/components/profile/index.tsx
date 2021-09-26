@@ -1,5 +1,5 @@
 import { FC, useReducer, useEffect } from "react";
-import { getUserPhotosByUsername } from "../../services/firebase";
+import { getUserPhotosByUserId } from "../../services/firebase";
 import Header from "./header";
 import Photos from "./photos";
 import { ProfileProps } from "../../helpers/types";
@@ -12,13 +12,12 @@ const Profile: FC<ProfileType> = (
   { user }: ProfileType
 ) => {
 
-  const reducer = (
-    state: any, newState: any
-  ) => ({ ...state, ...newState });
+  const reducer = (state: any, newState: any) => ({ ...state, ...newState });
 
   const initialState = {
     profile: {},
     photosCollection: [],
+    followerCount: 0,
   }
 
   const [
@@ -28,7 +27,7 @@ const Profile: FC<ProfileType> = (
 
   useEffect(() => {
     const getProfileInfoAndPhotos = async () => {
-      const photos = await getUserPhotosByUsername(user.username);
+      const photos = await getUserPhotosByUserId(user.userId);
 
       dispatch({
         profile: user,
@@ -39,14 +38,12 @@ const Profile: FC<ProfileType> = (
 
     getProfileInfoAndPhotos();
 
-  }, [user]);
+  }, [user.username]);
 
   return (
     <>
       <Header
-        photosCount={
-          photosCollection ? photosCollection.length : 0
-        }
+        photosCount={photosCollection ? photosCollection.length : 0}
         profile={profile}
         followerCount={followerCount}
         setFollowerCount={dispatch}

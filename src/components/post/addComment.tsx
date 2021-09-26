@@ -13,7 +13,7 @@ import { CommentType } from "../../helpers/types";
 type AddCommentProps = {
   docId: string,
   comments: CommentType[],
-  setComments: Dispatch<SetStateAction<CommentType[] | any>>,
+  setComments: Dispatch<SetStateAction<CommentType[]>>,
   commentInput: MutableRefObject<null>,
 }
 
@@ -31,9 +31,7 @@ const AddComment: FC<AddCommentProps> = ({
     user: { displayName }
   } = useContext(UserContext);
 
-  const handleSubmitComment = (
-    event: any
-  ) => {
+  const handleSubmitComment = (event: any) => {
     event.preventDefault();
 
     setComments([{ displayName, comment }, ...comments]);
@@ -45,7 +43,7 @@ const AddComment: FC<AddCommentProps> = ({
       .doc(docId)
       .update({
         comments: FieldValue.arrayUnion({ displayName, comment })
-      })
+      });
   };
 
   return (

@@ -1,5 +1,6 @@
-import { FC, useRef } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
+import { DEFAULT_IMAGE_PATH } from "../../constants/contants";
 
 type HeaderProps = {
   username: string,
@@ -20,6 +21,9 @@ const Header: FC<HeaderProps> = (
             src={`/images/avatars/${username}.jpg`}
             alt={`${username} profile picture`}
             className="rounded-full h-8 w-8 flex mr-3"
+            onError={(event: any) => {
+              event.target.src = DEFAULT_IMAGE_PATH;
+            }}
           />
           <p className="font-bold">
             {username}

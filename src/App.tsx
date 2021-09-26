@@ -1,14 +1,16 @@
-import React, { FC, lazy, Suspense } from 'react';
+import { FC, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch
 } from "react-router-dom";
-import { AppRoutes } from "./constants/contants";
 import UserContext from "./context/user";
 import useAuthListener from "./hooks/useAuthListener";
+import ReactLoader from './components/loader';
+import { AppRoutes } from "./constants/contants";
+
+
 import ProtectedRoute from "./helpers/protectedRoute";
-import IsUserLoggedIn from './helpers/isUserLoggedIn';
 
 const Login = lazy(() => import("./pages/loginPage"));
 const SignUp = lazy(() => import("./pages/signUpPage"));
@@ -23,24 +25,11 @@ const App: FC = () => {
   return (
     <UserContext.Provider value={{ user }}>
       <Router>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<ReactLoader />}>
           <Switch>
-            <IsUserLoggedIn
-              user={user}
-              loggedInPath={AppRoutes.DASHBOARD}
-              path={AppRoutes.LOGIN}
-            >
-              <Login />
-            </IsUserLoggedIn>
 
-            <IsUserLoggedIn
-              user={user}
-              loggedInPath={AppRoutes.DASHBOARD}
-              path={AppRoutes.SIGN_UP}
-            >
-              <SignUp />
-            </IsUserLoggedIn>
-
+            <Route path={AppRoutes.LOGIN} component={Login} />
+            <Route path={AppRoutes.SIGN_UP} component={SignUp} />
             <Route path={AppRoutes.PROFILE} component={Profile} />
 
             <ProtectedRoute
@@ -48,7 +37,7 @@ const App: FC = () => {
               path={AppRoutes.DASHBOARD}
               exact
             >
-              <Route path={AppRoutes.DASHBOARD} component={Dashboard} />
+              <Dashboard user={user} />
             </ProtectedRoute>
 
             <Route component={NotFound} />

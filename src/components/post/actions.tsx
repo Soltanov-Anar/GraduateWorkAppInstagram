@@ -30,15 +30,13 @@ const Actions: FC<ActionsProps> = (
       .collection("photos")
       .doc(docId)
       .update({
-        likes: toggleLiked ?
-          FieldValue.arrayRemove(userId) :
-          FieldValue.arrayUnion(userId)
+        likes: toggleLiked
+          ? FieldValue.arrayRemove(userId)
+          : FieldValue.arrayUnion(userId)
       });
 
-    setLikes((likes) => (toggleLiked ? --likes : ++likes))
+    setLikes((likes) => (toggleLiked ? --likes : ++likes));
   };
-
-  console.log("toggleLiked", toggleLiked);
 
   return (
     <>
@@ -46,17 +44,13 @@ const Actions: FC<ActionsProps> = (
         <div className="flex">
           <svg
             onClick={handleToggleLiked}
-            onKeyDown={({ key }) => {
-              if (key === 'Enter') {
-                handleToggleLiked();
-              }
-            }}
+            onKeyDown={({ key }) => key === "Enter" && handleFocus()}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
             tabIndex={0}
-            className={`w-8 mr-4 select-none cursor-pointer focus:outline-none ${toggleLiked ? 'fill-red text-red-primary' : 'text-black-light'
+            className={`w-8 mr-4 select-none cursor-pointer focus:outline-none ${toggleLiked ? "fill-red text-red-primary" : "text-black-light"
               }`}
           >
             <path
@@ -69,11 +63,7 @@ const Actions: FC<ActionsProps> = (
 
           <svg
             onClick={handleFocus}
-            onKeyDown={({ key }) => {
-              if (key === 'Enter') {
-                handleFocus();
-              };
-            }}
+            onKeyDown={({ key }) => key === "Enter" && handleFocus()}
             className="w-8 text-black-light select-none cursor-pointer focus:outline-none"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

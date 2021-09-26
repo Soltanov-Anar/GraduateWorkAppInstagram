@@ -1,8 +1,7 @@
 import { FC, useState, useEffect, useContext, FormEvent } from "react";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { AppRoutes } from "../constants/contants";
+import { Link, useHistory } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
+import { AppRoutes } from "../constants/contants";
 
 const LoginPage: FC = () => {
 
@@ -17,7 +16,6 @@ const LoginPage: FC = () => {
   const isInvalid = (password === "" || email === "");
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    console.log("hi", event);
     event.preventDefault();
 
     try {
@@ -44,7 +42,7 @@ const LoginPage: FC = () => {
         />
       </div>
       <div className="flex flex-col w-2/5">
-        <div className="flex flex-col item-center bg-white p-4 border border-gray-primary mb-4 rounded">
+        <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
           <h1 className="flex justify-center w-full">
             <img
               src="/images/logo.png"
@@ -52,15 +50,13 @@ const LoginPage: FC = () => {
               className="mt-2 w-6/12 mb-4"
             />
           </h1>
+
           {error &&
             <p className="mb-4 text-xs text-red-primary">
               {error}
             </p>}
 
-          <form
-            onSubmit={handleLogin}
-            method="POST"
-          >
+          <form onSubmit={handleLogin} method="POST">
             <input
               aria-label="Enter your email address"
               type="text"
@@ -83,17 +79,17 @@ const LoginPage: FC = () => {
               disabled={isInvalid}
               type="submit"
               className={
-                `bg-blue-medium text-white w-full rounded h8 font-bold ${isInvalid && "opacity-50"}`
+                `bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && "opacity-50"}`
               }
             >
-              Log in
+              Login
             </button>
           </form>
         </div>
 
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary">
           <p className="text-sm">
-            Don`t have an account?{' '}
+            Don`t have an account?{" "}
             <Link
               to={AppRoutes.SIGN_UP}
               className="font-bold text-blue-medium"

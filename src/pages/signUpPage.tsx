@@ -1,6 +1,5 @@
 import { FC, useState, useEffect, useContext, FormEvent } from "react";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AppRoutes } from "../constants/contants";
 import FirebaseContext from "../context/firebase";
 import { doesUsernameExist } from "../services/firebase";
@@ -23,7 +22,6 @@ const SignUpPage: FC = () => {
     event.preventDefault();
 
     const usernameExists = await doesUsernameExist(username);
-    console.log("usernameExists", usernameExists);
 
     if (!usernameExists) {
       try {
@@ -42,10 +40,11 @@ const SignUpPage: FC = () => {
             userId: createdUserResult.user.uid,
             username: username.toLowerCase(),
             fullName,
-            email: email.toLowerCase(),
-            following: [],
+            emailAddress: email.toLowerCase(),
+            following: ['2'],
+            followers: [],
             dateCreated: Date.now()
-          })
+          });
 
         history.push(AppRoutes.DASHBOARD);
 
@@ -59,8 +58,7 @@ const SignUpPage: FC = () => {
       setUserName("");
       setError("That username is already taken, please try another.");
     }
-
-  }
+  };
 
   useEffect(() => {
     document.title = "Sign Up - Instagram"
@@ -75,7 +73,7 @@ const SignUpPage: FC = () => {
         />
       </div>
       <div className="flex flex-col w-2/5">
-        <div className="flex flex-col item-center bg-white p-4 border border-gray-primary mb-4 rounded">
+        <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
           <h1 className="flex justify-center w-full">
             <img
               src="/images/logo.png"
@@ -88,11 +86,7 @@ const SignUpPage: FC = () => {
               {error}
             </p>}
 
-          <form
-            onSubmit={handleSignUp}
-            method="POST"
-          >
-
+          <form onSubmit={handleSignUp} method="POST">
             <input
               aria-label="Enter your username"
               type="text"
@@ -102,11 +96,10 @@ const SignUpPage: FC = () => {
               value={username}
             />
 
-
             <input
               aria-label="Enter your full name"
               type="text"
-              placeholder="Full Name"
+              placeholder="Full name"
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target: { value } }) => setFullName(value)}
               value={fullName}
@@ -134,7 +127,7 @@ const SignUpPage: FC = () => {
               disabled={isInvalid}
               type="submit"
               className={
-                `bg-blue-medium text-white w-full rounded h8 font-bold ${isInvalid && "opacity-50"}`
+                `bg-blue-medium text-white w-full rounded h-8 font-bold ${isInvalid && "opacity-50"}`
               }
             >
               Sign up
@@ -144,7 +137,7 @@ const SignUpPage: FC = () => {
 
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary">
           <p className="text-sm">
-            Have an account?{' '}
+            Have an account?{" "}
             <Link
               to={AppRoutes.LOGIN}
               className="font-bold text-blue-medium"
@@ -155,7 +148,7 @@ const SignUpPage: FC = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 SignUpPage.displayName = "SignUpPage";

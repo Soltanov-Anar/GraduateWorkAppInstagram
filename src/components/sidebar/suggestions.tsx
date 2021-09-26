@@ -13,13 +13,13 @@ const Suggestions: FC<SuggestionsProps> = (
   { loggedInUserDocId, userId, following }: SuggestionsProps
 ) => {
 
-  const [profiles, setProfiles] = useState<any>();
+  const [profiles, setProfiles] = useState<any>(null);
 
   useEffect(() => {
     const suggestedProfiles = async () => {
       const response = await getSuggestedProfiles(userId, following);
       setProfiles(response);
-    }
+    };
 
     if (userId) {
       suggestedProfiles();

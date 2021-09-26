@@ -1,13 +1,20 @@
-import { FC } from "react";
-import useUser from "../../hooks/useUser";
+import { FC, useContext } from "react";
 import User from "./user";
 import Suggestions from "./suggestions";
+import LoggedInUserContext from "../../context/loggedInUser";
 
 const Sidebar: FC = () => {
   const {
-    user: { docId, fullName, username, userId, following }
-  }: any = useUser();
-
+    user:
+    {
+      docId = "",
+      fullName = "",
+      username = "",
+      userId = "",
+      following = []
+    }
+    = {}
+  }: any = useContext(LoggedInUserContext);
 
   return (
     <div className="p-4">

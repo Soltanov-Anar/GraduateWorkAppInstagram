@@ -18,20 +18,18 @@ const Comments: FC<CommentsProps> = ({
   commentInput
 }: CommentsProps) => {
 
-  const [comments, setComments] =
-    useState<Array<CommentType | any>>(allComments);
+  const [comments, setComments] = useState<Array<CommentType>>(allComments);
+  const [commentsSlice, setCommentsSlice] = useState<number>(allComments.length);
+
+  const showNextComments = () => setCommentsSlice(commentsSlice + 3);
 
   return (
     <>
       <div className="p-4 pt-1 pb-4">
-        {comments.length >= 3 && (
-          <p className="text-sm text-gray-base mb-1 cursor-pointer">
-            View all {comments.length} comments
-          </p>
-        )}
-        {comments.slice(0, 3).map((item: CommentType) => (
+
+        {comments.slice(0, commentsSlice).map((item: CommentType) => (
           <p
-            key={`${item.comment} - ${item.displayName}`}
+            key={`${item.comment}-${item.displayName}`}
             className="mb-1"
           >
             <Link to={`/p/${item.displayName}`}>
@@ -42,9 +40,22 @@ const Comments: FC<CommentsProps> = ({
             <span>{item.comment}</span>
           </p>
         ))}
-        <p className="text-gray-base uppercase text-xs">
+
+        {comments.length >= 3 && commentsSlice < comments.length && (
+          <button
+            className="text-sm text-gray-base mb-1 cursor-pointer focus:outline-none"
+            type="button"
+            onClick={showNextComments}
+            onKeyDown={({ key }) => key === 'Enter' && showNextComments()}
+          >
+            View more comments
+          </button>
+        )}
+
+        <p className="text-gray-base uppercase text-xs mt-2">
           {formatDistance(posted, new Date())} ago
         </p>
+
       </div>
       <AddComment
         docId={docId}

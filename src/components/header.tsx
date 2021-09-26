@@ -1,17 +1,17 @@
 import { FC, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AppRoutes } from "../constants/contants";
 import FirebaseContext from "../context/firebase";
 import UserContext from "../context/user";
+import useUser from "../hooks/useUser";
+import { AppRoutes, DEFAULT_IMAGE_PATH } from "../constants/contants";
 
 const Header: FC = () => {
 
+  const { user: loggedInUser } = useContext(UserContext);
+  const { user }: any = useUser(loggedInUser?.uid);
   const { firebase } = useContext(FirebaseContext);
-  const { user } = useContext(UserContext);
-  const history = useHistory()
 
-  console.log("user", user);
-  console.log("firebase", firebase);
+  const history = useHistory()
 
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8">
@@ -19,10 +19,7 @@ const Header: FC = () => {
         <div className="flex justify-between h-full">
           <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
             <h1 className="flex justify-center w-full">
-              <Link
-                to={AppRoutes.DASHBOARD}
-                aria-label="Instagram logo"
-              >
+              <Link to={AppRoutes.DASHBOARD} aria-label="Instagram logo">
                 <img
                   src="/images/logo.png"
                   alt="instagram"
@@ -32,8 +29,8 @@ const Header: FC = () => {
             </h1>
           </div>
 
-          <div className="text-gray-700 text-center flex items-center align-itens">
-            {user ? (
+          <div className="text-gray-700 text-center flex items-center align-items">
+            {loggedInUser ? (
               <>
                 <Link to={AppRoutes.DASHBOARD} aria-label="Dashboard">
                   <svg
@@ -55,9 +52,12 @@ const Header: FC = () => {
                 <button
                   type="button"
                   title="Sign Out"
-                  onClick={() => firebase.auth().signOut()}
+                  onClick={() => {
+                    firebase.auth().signOut()
+                    history.push(AppRoutes.LOGIN);
+                  }}
                   onKeyDown={({ key }) => {
-                    if (key === 'Enter') {
+                    if (key === "Enter") {
                       firebase.auth().signOut();
                       history.push(AppRoutes.LOGIN);
                     }
@@ -79,21 +79,24 @@ const Header: FC = () => {
                   </svg>
                 </button>
 
-                <div className="flex items-center cursor-pointer">
-                  <Link to={`/p/${user.displayName}`}>
-                    <img
-                      className="rounded-full h-8 w-8 flex"
-                      src={`/images/avatars/${user.displayName}.jpg`}
-                      alt={`${user.displayName} profile`}
-                    />
-                  </Link>
-                </div>
+                {user && (
+                  <div className="flex items-center cursor-pointer">
+                    <Link to={`/p/${user?.username}`}>
+                      <img
+                        className="rounded-full h-8 w-8 flex"
+                        src={`/images/avatars/${user?.username}.jpg`}
+                        alt={`${user?.username} profile`}
+                        onError={(event: any) => {
+                          event.target.src = DEFAULT_IMAGE_PATH;
+                        }}
+                      />
+                    </Link>
+                  </div>
+                )}
               </>
             ) : (
               <>
-                <Link
-                  to={AppRoutes.LOGIN}
-                >
+                <Link to={AppRoutes.LOGIN}>
                   <button
                     type="button"
                     className="bg-blue-medium font-bold text-sm rounded text-white w-20 h-8"
@@ -116,7 +119,7 @@ const Header: FC = () => {
         </div>
       </div>
     </header>
-  )
+  );
 };
 
 Header.displayName = "Header";

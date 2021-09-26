@@ -1,9 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  getUserByUserId,
   updateLoggedInUserFollowing,
   updateFollowedUserFollowers
 } from "../../services/firebase";
+import LoggedInUserContext from "../../context/loggedInUser";
+import { DEFAULT_IMAGE_PATH } from "../../constants/contants";
 
 type SuggestedProfileProps = {
   profileDocId: string,
@@ -22,6 +25,7 @@ const SuggestedProfile: FC<SuggestedProfileProps> = ({
 }: SuggestedProfileProps) => {
 
   const [followed, setFollowed] = useState<boolean>(false);
+  const { setActiveUser } = useContext(LoggedInUserContext);
 
   const handleFollowUser = async () => {
     setFollowed(true);
@@ -29,6 +33,9 @@ const SuggestedProfile: FC<SuggestedProfileProps> = ({
     await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
 
     await updateFollowedUserFollowers(profileDocId, userId, false);
+
+    const [user] = await getUserByUserId(userId);
+    setActiveUser(user);
   };
 
   return !followed ? (
@@ -38,6 +45,9 @@ const SuggestedProfile: FC<SuggestedProfileProps> = ({
           className="rounded-full w-8 flex mr-3"
           src={`/images/avatars/${username}.jpg`}
           alt={`avatar ${username}`}
+          onError={(e: any) => {
+            e.target.src = DEFAULT_IMAGE_PATH;
+          }}
         />
         <Link to={`/p/${username}`}>
           <p className="font-bold text-sm">
