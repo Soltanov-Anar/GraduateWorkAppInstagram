@@ -4,7 +4,7 @@ import Header from "../components/header";
 const NotFoundPage: FC = () => {
 
   useEffect(() => {
-    document.title = "Not found - Instagram"
+    document.title = "Not Found - Instagram"
   }, []);
 
   return (

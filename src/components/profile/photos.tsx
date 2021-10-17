@@ -8,8 +8,8 @@ type PhotosProps = {
 
 const Photos: FC<PhotosProps> = ({ photos }: PhotosProps) => {
   return (
-    <div className="h-16 border-t border-gray-primary mt-12 pt-4">
-      <div className="grid grid-cols-3 gap-8 mt-4 mb-12">
+    <div className="h-16 border-t border-gray-primary mt-12 px-3 lg:px-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4 mb-12">
         {!photos ?
           new Array(12).fill(0).map((_, i) =>
             <Skeleton key={i} width={320} height={400} />)

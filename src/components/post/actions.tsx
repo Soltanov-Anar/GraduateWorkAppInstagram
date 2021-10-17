@@ -43,6 +43,7 @@ const Actions: FC<ActionsProps> = (
       <div className="flex justify-between p-4">
         <div className="flex">
           <svg
+            data-testid={`like-photo-${docId}`}
             onClick={handleToggleLiked}
             onKeyDown={({ key }) => key === "Enter" && handleFocus()}
             xmlns="http://www.w3.org/2000/svg"
@@ -62,6 +63,7 @@ const Actions: FC<ActionsProps> = (
           </svg>
 
           <svg
+            data-testid={`focus-input-${docId}`}
             onClick={handleFocus}
             onKeyDown={({ key }) => key === "Enter" && handleFocus()}
             className="w-8 text-black-light select-none cursor-pointer focus:outline-none"

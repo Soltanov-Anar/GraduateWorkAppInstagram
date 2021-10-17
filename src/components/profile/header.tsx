@@ -72,7 +72,7 @@ const Header: FC<HeaderProps> = ({
       <div className="container flex justify-center items-center">
         {profileUsername ? (
           <img
-            className="rounded-full h-40 w-40 flex"
+            className="rounded-full h-16 w-16 md:h-20 lg:h-40 md:w-20 lg:w-40 flex"
             alt={`${fullName} profile picture`}
             src={`/images/avatars/${profileUsername}.jpg`}
             onError={(e: any) => {
@@ -92,7 +92,7 @@ const Header: FC<HeaderProps> = ({
           <p className="text-2xl mr-4">
             {profileUsername}
           </p>
-          {activeBtnFollow && !isFollowingProfile ? (
+          {!profileDocId ? (
             <Skeleton count={1} width={80} height={32} />
           ) : (
             activeBtnFollow && (
@@ -111,7 +111,7 @@ const Header: FC<HeaderProps> = ({
             ))}
         </div>
 
-        <div className="container flex mt-4">
+        <div className="container flex mt-4 flex-col lg:flex-row">
           {!followers || !following ? (
             <Skeleton count={1} width={677} height={24} />
           ) : (
@@ -150,7 +150,7 @@ const Header: FC<HeaderProps> = ({
         </div>
 
       </div>
-    </div>
+    </div >
   );
 };
 

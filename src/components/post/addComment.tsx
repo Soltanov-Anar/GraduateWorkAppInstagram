@@ -27,14 +27,12 @@ const AddComment: FC<AddCommentProps> = ({
   const [comment, setComment] = useState<string>("");
   const { firebase, FieldValue } = useContext(FirebaseContext);
 
-  const {
-    user: { displayName }
-  } = useContext(UserContext);
+  const { user: { displayName } } = useContext(UserContext);
 
   const handleSubmitComment = (event: any) => {
     event.preventDefault();
 
-    setComments([{ displayName, comment }, ...comments]);
+    setComments([...comments, { displayName, comment }]);
     setComment("");
 
     return firebase
@@ -49,6 +47,7 @@ const AddComment: FC<AddCommentProps> = ({
   return (
     <div className="border-t border-gray-primary">
       <form
+        data-testid={`add-comment-submit-${docId}`}
         action="POST"
         className="flex justify-between pl-0 pr-5"
         onSubmit={(event) =>
@@ -58,11 +57,12 @@ const AddComment: FC<AddCommentProps> = ({
         }
       >
         <input
+          data-testid={`add-comment-${docId}`}
           aria-label="Add a comment"
           autoComplete="off"
           className="text-sm text-gray-base w-full mr-3 py-5 px-4"
           type="text"
-          name="add-comments"
+          name="add-comment"
           placeholder="Add a comment..."
           value={comment}
           onChange={({ target: { value } }) => setComment(value)}

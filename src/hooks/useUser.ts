@@ -6,7 +6,7 @@ const useUser = (userId: string) => {
 
   useEffect(() => {
     const getUserObjByUserId = async (userId: string) => {
-    const [user] = await getUserByUserId(userId);
+      const [user] = await getUserByUserId(userId);
       setActiveUser(user || {});
     };
 
@@ -16,7 +16,7 @@ const useUser = (userId: string) => {
 
   }, [userId]);
 
-  return { user: activeUser};
+  return { user: activeUser, setActiveUser };
 
 };
 

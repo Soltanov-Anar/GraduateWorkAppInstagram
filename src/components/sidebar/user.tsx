@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import { DEFAULT_IMAGE_PATH } from '../../constants/contants';
+import { DEFAULT_IMAGE_PATH } from "../../constants/contants";
 
 type UserProps = {
   username: string,

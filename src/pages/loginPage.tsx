@@ -11,7 +11,7 @@ const LoginPage: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const isInvalid = (password === "" || email === "");
 
@@ -34,29 +34,29 @@ const LoginPage: FC = () => {
 
 
   return (
-    <div className="container flex mx-auto max-w-screen-md items-center h-screen">
-      <div className="flex w-3/5">
+    <div className="container flex flex-col lg:flex-row mx-auto max-w-screen-md items-center h-screen px-4 lg:px-0">
+      <div className="hidden lg:flex w-5/5 lg:w-3/5">
         <img
           src="/images/iphone-with-profile.jpg"
           alt="IPhone with Instagram app"
         />
       </div>
-      <div className="flex flex-col w-2/5">
+      <div className="flex flex-col w-full lg:w-2/5 justify-center h-full max-w-md m-auto">
         <div className="flex flex-col items-center bg-white p-4 border border-gray-primary mb-4 rounded">
           <h1 className="flex justify-center w-full">
             <img
               src="/images/logo.png"
               alt="Logo instagram app"
-              className="mt-2 w-6/12 mb-4"
+              className="mt-2 mb-4"
             />
           </h1>
 
           {error &&
-            <p className="mb-4 text-xs text-red-primary">
+            <p data-testid="error" className="mb-4 text-xs text-red-primary">
               {error}
             </p>}
 
-          <form onSubmit={handleLogin} method="POST">
+          <form onSubmit={handleLogin} method="POST" data-testid="login">
             <input
               aria-label="Enter your email address"
               type="text"
@@ -93,6 +93,7 @@ const LoginPage: FC = () => {
             <Link
               to={AppRoutes.SIGN_UP}
               className="font-bold text-blue-medium"
+              data-testid="sign-up"
             >
               Sign up
             </Link>

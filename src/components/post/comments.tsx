@@ -19,7 +19,7 @@ const Comments: FC<CommentsProps> = ({
 }: CommentsProps) => {
 
   const [comments, setComments] = useState<Array<CommentType>>(allComments);
-  const [commentsSlice, setCommentsSlice] = useState<number>(allComments.length);
+  const [commentsSlice, setCommentsSlice] = useState<number>(3);
 
   const showNextComments = () => setCommentsSlice(commentsSlice + 3);
 

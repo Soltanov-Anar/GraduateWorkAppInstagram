@@ -14,12 +14,10 @@ const Timeline: FC = () => {
   const { photos } = usePhotos(user);
 
   return (
-    <div className="container col-span-2">
+    <div className="container col-span-3 lg:col-span-2">
       {!following ? (
         <Skeleton
-          count={2}
-          width={640}
-          height={500}
+          count={4} width={640} height={500}
           className="mb-5"
         />
       ) : following.length === 0 ? (
@@ -32,7 +30,7 @@ const Timeline: FC = () => {
         )
       ) : null}
     </div>
-  )
+  );
 };
 
 Timeline.displayName = "Timeline";

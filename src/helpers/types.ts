@@ -22,8 +22,8 @@ export type PostProps = {
 export type ProfileProps = {
   dateCreated: number,
   emailAddress: string,
-  followers: any[],
-  following: any[],
+  followers: string[],
+  following: string[],
   fullName: string,
   userId: string,
   username: string
@@ -39,8 +39,8 @@ export type HeaderProfile = {
   docId: string,
   userId: string,
   fullName: string,
-  followers: any[],
-  following: any[],
+  followers: string[],
+  following: string[],
   username: string
 }
 

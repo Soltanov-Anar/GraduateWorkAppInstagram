@@ -88,8 +88,8 @@ export const updateFollowedUserFollowers = async (
     .collection("users")
     .doc(profileDocId)
     .update({
-      followers: isFollowingProfile 
-        ? FieldValue.arrayRemove(loggedInUserDocId) 
+      followers: isFollowingProfile
+        ? FieldValue.arrayRemove(loggedInUserDocId)
         : FieldValue.arrayUnion(loggedInUserDocId)
     });
 };
@@ -164,27 +164,27 @@ export const isUserFollowingProfile = async (
     ...item.data(),
     docId: item.id
   }));
-  
+
   return response.userId;
 };
 
 export const toggleFollow = async (
-  isFollowingProfile : boolean,
-  activeUserDocId : string,
-  profileDocId : string,
+  isFollowingProfile: boolean,
+  activeUserDocId: string,
+  profileDocId: string,
   profileUserId: string,
   followingUserId: string,
 ): Promise<void> => {
 
   await updateLoggedInUserFollowing(
-    activeUserDocId, 
+    activeUserDocId,
     profileUserId,
     isFollowingProfile
   );
 
   await updateFollowedUserFollowers(
-    profileDocId, 
-    followingUserId, 
+    profileDocId,
+    followingUserId,
     isFollowingProfile
   );
 };

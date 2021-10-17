@@ -13,8 +13,6 @@ const DashboardPage: FC<DashboardPageProps> = (
   { user: loggedInUser }: any
 ) => {
 
-  console.log("loggedInUser", loggedInUser);
-
   const { user, setActiveUser }: any = useUser(loggedInUser.uid);
 
   useEffect(() => {
@@ -25,7 +23,7 @@ const DashboardPage: FC<DashboardPageProps> = (
     <LoggedInUserContext.Provider value={{ user, setActiveUser }}>
       <div className="bg-gray-background">
         <Header />
-        <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
+        <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg px-4 lg:px-0">
           <Timeline />
           <Sidebar />
         </div>

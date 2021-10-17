@@ -4,20 +4,19 @@ import Suggestions from "./suggestions";
 import LoggedInUserContext from "../../context/loggedInUser";
 
 const Sidebar: FC = () => {
+
   const {
-    user:
-    {
+    user: {
       docId = "",
       fullName = "",
       username = "",
       userId = "",
       following = []
-    }
-    = {}
+    } = {}
   }: any = useContext(LoggedInUserContext);
 
   return (
-    <div className="p-4">
+    <div className="hidden md:block p-4">
       <User
         username={username}
         fullName={fullName}

@@ -55,7 +55,7 @@
     "start": "run-p watch:css react-scripts:start",
     "buildNative": "react-scripts build",
     "build": "CI=false && react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -64,6 +64,34 @@
       "react-app/jest"
     ]
   },
+
+  "jest": {
+    "collectCoverageFrom": [
+      "!<rootDir>/src/App.tsx",
+      "!<rootDir>/src/index.tsx",
+      "!<rootDir>/src/seed.ts",
+      "!<rootDir>/src/fixtures/*.ts",
+      "!<rootDir>/src/hooks/*.ts",
+      "!<rootDir>/src/helpers/*.tsx",
+      "!<rootDir>/src/helpers/*.ts",
+      "!<rootDir>/src/services/firebase.ts"
+    ],
+
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+
+    "coverageReporters": [
+      "html",
+      "text"
+    ]
+  },
+
   "browserslist": {
     "production": [
       ">0.2%",
