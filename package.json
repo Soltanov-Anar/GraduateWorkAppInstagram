@@ -26,6 +26,7 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "cypress": "^8.6.0",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "autoprefixer": "^10.2.4",
@@ -40,12 +41,12 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.1",
+    "loadtest": "*",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
     "prettier": "^2.3.2",
-    "tailwindcss": "^2.2.15",
-    "loadtest": "*"
+    "tailwindcss": "^2.2.15"
   },
   "scripts": {
     "build:css": "postcss src/styles/tailwind.css -o src/styles/app.css",
@@ -56,6 +57,7 @@
     "buildNative": "react-scripts build",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test --coverage --watchAll",
+    "e2e": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -64,7 +66,6 @@
       "react-app/jest"
     ]
   },
-
   "jest": {
     "collectCoverageFrom": [
       "!<rootDir>/src/App.tsx",
@@ -76,7 +77,6 @@
       "!<rootDir>/src/helpers/*.ts",
       "!<rootDir>/src/services/firebase.ts"
     ],
-
     "coverageThreshold": {
       "global": {
         "branches": 90,
@@ -85,13 +85,11 @@
         "statements": 90
       }
     },
-
     "coverageReporters": [
       "html",
       "text"
     ]
   },
-
   "browserslist": {
     "production": [
       ">0.2%",
