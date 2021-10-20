@@ -1,13 +1,14 @@
 import { FC } from "react";
 import { isMobile } from 'react-device-detect';
 import Skeleton from "react-loading-skeleton";
+import { PhotoType } from "../../helpers/types";
 import Post from "../post";
 
-type PhotoType = {
-  photos: PhotoType[]
+type PhotoTypeProps = {
+  photos: PhotoType["content"][]
 }
 
-const Photos: FC<PhotoType> = ({ photos }: any) => {
+const Photos: FC<PhotoTypeProps> = ({ photos }: PhotoTypeProps) => {
 
   return (
     <div className="h-16 border-t border-gray-primary mt-12 px-3 lg:px-0">
@@ -17,7 +18,7 @@ const Photos: FC<PhotoType> = ({ photos }: any) => {
             <Skeleton key={i} width={320} height={400} />)
 
           : photos.length > 0 ? (
-            photos.map((photo: any) =>
+            photos.map((photo: PhotoType["content"]) =>
               <>
                 {!isMobile && (
                   <div

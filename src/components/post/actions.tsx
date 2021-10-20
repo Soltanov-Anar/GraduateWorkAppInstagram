@@ -40,7 +40,7 @@ const Actions: FC<ActionsProps> = (
 
   return (
     <>
-      <div className="flex justify-between p-4">
+      <div className="flex justify-between p-4 sm:p-1 md:p-2">
         <div className="flex">
           <svg
             data-testid={`like-photo-${docId}`}

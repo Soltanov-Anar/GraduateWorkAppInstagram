@@ -1,3 +1,5 @@
+import { Dispatch } from "react"
+
 export type CommentType = {
   displayName: string,
   comment: string
@@ -5,17 +7,17 @@ export type CommentType = {
 
 export type PostProps = {
   content: {
-    username: string,
     imageSrc: string,
     caption: string,
     docId: string,
-    userLikedPhoto: boolean,
     likes: string[],
     comments: {
       displayName: string,
       comment: string
     }[],
     dateCreated: number,
+    username?: string,
+    userLikedPhoto?: boolean,
   }
 }
 
@@ -26,12 +28,13 @@ export type ProfileProps = {
   following: string[],
   fullName: string,
   userId: string,
-  username: string
+  username: string,
+  docId: string,
 }
 
 export type ProfileState = {
-  profile: any,
-  photosCollection: any[],
+  profile: ProfileProps,
+  photosCollection: PhotoType["content"][],
   followerCount: number
 }
 
@@ -58,4 +61,20 @@ export type PhotoType = {
     userLongitude: string,
     username?: string
   }
+}
+
+export type User = {
+  dateCreated: number,
+  docId: string,
+  emailAddress: string,
+  followers: string[],
+  following: string[],
+  fullName: string,
+  userId: string,
+  username: string
+}
+
+export type UseUserType = {
+  user: User,
+  setActiveUser: Dispatch<User>
 }

@@ -2,22 +2,23 @@ import { FC, useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { getSuggestedProfiles } from "../../services/firebase";
 import SuggestedProfile from "./suggestedProfile";
+import { User } from "../../helpers/types";
 
 type SuggestionsProps = {
   loggedInUserDocId: string,
   userId: string,
-  following: number[]
+  following: string[]
 }
 
 const Suggestions: FC<SuggestionsProps> = (
   { loggedInUserDocId, userId, following }: SuggestionsProps
 ) => {
 
-  const [profiles, setProfiles] = useState<any>(null);
+  const [profiles, setProfiles] = useState<User[]>([] as User[]);
 
   useEffect(() => {
     const suggestedProfiles = async () => {
-      const response = await getSuggestedProfiles(userId, following);
+      const response: User[] = await getSuggestedProfiles(userId, following);
       setProfiles(response);
     };
 
@@ -42,7 +43,7 @@ const Suggestions: FC<SuggestionsProps> = (
       </div>
 
       <div className="mt-4 grid gap-5">
-        {profiles.map((profile: any) => (
+        {profiles.map((profile: User) => (
           <SuggestedProfile
             key={profile.docId}
             profileDocId={profile.docId}

@@ -4,11 +4,12 @@ import { getUserByUsername } from "../services/firebase";
 import { AppRoutes } from "../constants/contants";
 import Header from "../components/header";
 import UserProfile from "../components/profile";
+import { User } from "../helpers/types";
 
 const ProfilePage: FC = () => {
 
-  const { username }: any = useParams();
-  const [user, setUser] = useState<any>(null);
+  const { username } = useParams<{ username?: string }>();
+  const [user, setUser] = useState<User>({} as User);
   const history = useHistory();
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const ProfilePage: FC = () => {
 
   useEffect(() => {
     const checkUserExists = async () => {
-      const [user]: any = await getUserByUsername(username);
+      const [user]: User[] = await getUserByUsername(username || "");
       if (user?.userId) {
         setUser(user);
         document.title = `${user.username} - Instagram`;

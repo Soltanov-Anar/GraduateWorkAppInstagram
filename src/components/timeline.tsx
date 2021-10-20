@@ -1,6 +1,7 @@
 import { FC, useContext } from "react";
 import Skeleton from "react-loading-skeleton";
 import LoggedInUserContext from "../context/loggedInUser";
+import { PostProps } from "../helpers/types";
 import usePhotos from "../hooks/usePhotos";
 import Post from "./post";
 
@@ -25,7 +26,7 @@ const Timeline: FC = () => {
           Follow other people to see Photos
         </p>
       ) : photos ? (
-        photos.map((content: any) =>
+        photos.map((content: PostProps["content"]) =>
           <Post key={content.docId} content={content} />
         )
       ) : null}

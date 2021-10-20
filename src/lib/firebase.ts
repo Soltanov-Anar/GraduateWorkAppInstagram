@@ -1,7 +1,7 @@
 import Firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { seedDatabase, removePhoto } from "../seed";
+//import { seedDatabase, removePhoto } from "../seed";
 
 type configType = {
   apiKey: string,

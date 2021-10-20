@@ -1,17 +1,25 @@
-import { FC, useContext } from "react";
+import { FC, SyntheticEvent, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
 import UserContext from "../context/user";
 import useUser from "../hooks/useUser";
 import { AppRoutes, DEFAULT_IMAGE_PATH } from "../constants/contants";
+import { UseUserType } from "../helpers/types";
 
 const Header: FC = () => {
 
   const { user: loggedInUser } = useContext(UserContext);
-  const { user }: any = useUser(loggedInUser?.uid);
+  const { user }: UseUserType = useUser(loggedInUser?.uid);
+
   const { firebase } = useContext(FirebaseContext);
 
-  const history = useHistory()
+  const history = useHistory();
+
+  const imageOnErrorHandler = (
+    event: SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    event.currentTarget.src = DEFAULT_IMAGE_PATH;
+  };
 
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8 px-4 lg:px-0">
@@ -81,15 +89,13 @@ const Header: FC = () => {
                 </button>
 
                 {user && (
-                  <div className="hidden lg:flex items-center cursor-pointer">
+                  <div className="ml-6 lg:ml-0 lg:flex items-center cursor-pointer">
                     <Link to={`/p/${user?.username}`}>
                       <img
                         className="rounded-full h-8 w-8 flex"
                         src={`/images/avatars/${user?.username}.jpg`}
                         alt={`${user?.username} profile`}
-                        onError={(event: any) => {
-                          event.target.src = DEFAULT_IMAGE_PATH;
-                        }}
+                        onError={imageOnErrorHandler}
                       />
                     </Link>
                   </div>

@@ -1,16 +1,16 @@
-import { FC, useState, useEffect, useContext, Dispatch } from "react";
+import { FC, useState, useEffect, useContext, Dispatch, SyntheticEvent } from "react";
 import Skeleton from "react-loading-skeleton";
 import useUser from "../../hooks/useUser";
 import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
 import UserContext from "../../context/user";
-import { HeaderProfile } from "../../helpers/types";
+import { HeaderProfile, User, UseUserType } from "../../helpers/types";
 import { DEFAULT_IMAGE_PATH } from '../../constants/contants';
 
 type HeaderProps = {
   photosCount: number,
   profile: HeaderProfile,
   followerCount: number
-  setFollowerCount: Dispatch<any>
+  setFollowerCount: Dispatch<{ followerCount: number }>
 }
 
 const Header: FC<HeaderProps> = ({
@@ -28,7 +28,7 @@ const Header: FC<HeaderProps> = ({
 }: HeaderProps) => {
 
   const { user: loggedInUser } = useContext(UserContext);
-  const { user = {} }: any = useUser(loggedInUser?.uid);
+  const { user = {} as User }: UseUserType = useUser(loggedInUser?.uid);
 
   const [isFollowingProfile, setIsFollowingProfile] = useState<boolean>(false);
 
@@ -65,7 +65,13 @@ const Header: FC<HeaderProps> = ({
       isLoggedInUserFollowingProfile();
     }
 
-  }, [user?.username, profileUserId])
+  }, [user?.username, profileUserId]);
+
+  const imageOnErrorHandler = (
+    event: SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    event.currentTarget.src = DEFAULT_IMAGE_PATH;
+  };
 
   return (
     <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
@@ -75,9 +81,7 @@ const Header: FC<HeaderProps> = ({
             className="rounded-full h-16 w-16 md:h-20 lg:h-40 md:w-20 lg:w-40 flex"
             alt={`${fullName} profile picture`}
             src={`/images/avatars/${profileUsername}.jpg`}
-            onError={(e: any) => {
-              e.target.src = DEFAULT_IMAGE_PATH;
-            }}
+            onError={imageOnErrorHandler}
           />
         ) : (
           <Skeleton

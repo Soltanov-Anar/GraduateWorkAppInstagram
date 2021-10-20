@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   MutableRefObject,
+  FormEvent,
 } from "react";
 import FirebaseContext from "../../context/firebase";
 import UserContext from "../../context/user";
@@ -14,7 +15,7 @@ type AddCommentProps = {
   docId: string,
   comments: CommentType[],
   setComments: Dispatch<SetStateAction<CommentType[]>>,
-  commentInput: MutableRefObject<null>,
+  commentInput: MutableRefObject<HTMLInputElement>,
 }
 
 const AddComment: FC<AddCommentProps> = ({
@@ -29,7 +30,7 @@ const AddComment: FC<AddCommentProps> = ({
 
   const { user: { displayName } } = useContext(UserContext);
 
-  const handleSubmitComment = (event: any) => {
+  const handleSubmitComment = (event: FormEvent<HTMLFormElement> | FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     setComments([...comments, { displayName, comment }]);
@@ -50,7 +51,7 @@ const AddComment: FC<AddCommentProps> = ({
         data-testid={`add-comment-submit-${docId}`}
         action="POST"
         className="flex justify-between pl-0 pr-5"
-        onSubmit={(event) =>
+        onSubmit={(event: FormEvent<HTMLFormElement>) =>
           comment.length >= 1 ?
             handleSubmitComment(event) :
             event.preventDefault()

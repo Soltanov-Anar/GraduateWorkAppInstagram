@@ -2,21 +2,22 @@ import { FC, useContext } from "react";
 import User from "./user";
 import Suggestions from "./suggestions";
 import LoggedInUserContext from "../../context/loggedInUser";
+import { UseUserType } from "../../helpers/types";
 
 const Sidebar: FC = () => {
 
   const {
     user: {
-      docId = "",
-      fullName = "",
-      username = "",
-      userId = "",
-      following = []
-    } = {}
-  }: any = useContext(LoggedInUserContext);
+      docId,
+      fullName,
+      username,
+      userId,
+      following,
+    }
+  }: UseUserType = useContext(LoggedInUserContext);
 
   return (
-    <div className="hidden md:block p-4">
+    <div className="hidden lg:block p-4">
       <User
         username={username}
         fullName={fullName}

@@ -8,7 +8,7 @@ type CommentsProps = {
   docId: string,
   comments: CommentType[],
   posted: number,
-  commentInput: MutableRefObject<null>
+  commentInput: MutableRefObject<HTMLInputElement>
 }
 
 const Comments: FC<CommentsProps> = ({

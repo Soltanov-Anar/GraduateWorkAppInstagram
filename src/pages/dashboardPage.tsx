@@ -1,19 +1,22 @@
 import { FC, useEffect } from "react";
+import Firebase from "firebase/compat/app";
 import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import Timeline from "../components/timeline";
 import useUser from "../hooks/useUser";
 import LoggedInUserContext from "../context/loggedInUser";
+import { UseUserType } from "../helpers/types";
+
 
 type DashboardPageProps = {
-  user: any
+  user: Firebase.User
 }
 
 const DashboardPage: FC<DashboardPageProps> = (
-  { user: loggedInUser }: any
+  { user: loggedInUser }: DashboardPageProps
 ) => {
 
-  const { user, setActiveUser }: any = useUser(loggedInUser.uid);
+  const { user, setActiveUser }: UseUserType = useUser(loggedInUser.uid);
 
   useEffect(() => {
     document.title = "Instagram";

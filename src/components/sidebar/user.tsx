@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import { DEFAULT_IMAGE_PATH } from "../../constants/contants";
@@ -8,8 +8,15 @@ type UserProps = {
   fullName: string
 };
 
-const User: FC<UserProps> = ({ username, fullName }: UserProps) =>
-  !username || !fullName ? (
+const User: FC<UserProps> = ({ username, fullName }: UserProps) => {
+
+  const imageOnErrorHandler = (
+    event: SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    event.currentTarget.src = DEFAULT_IMAGE_PATH;
+  };
+
+  return !username || !fullName ? (
     <Skeleton count={1} height={61} />
   ) : (
     <Link
@@ -21,9 +28,7 @@ const User: FC<UserProps> = ({ username, fullName }: UserProps) =>
           className="rounded-full w-16 flex mr-3"
           src={`/images/avatars/${username}.jpg`}
           alt="avatars picture"
-          onError={(e: any) => {
-            e.target.src = DEFAULT_IMAGE_PATH;
-          }}
+          onError={imageOnErrorHandler}
         />
       </div>
       <div className="col-span-3">
@@ -32,6 +37,8 @@ const User: FC<UserProps> = ({ username, fullName }: UserProps) =>
       </div>
     </Link>
   );
+}
+
 
 User.displayName = "User";
 

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { User } from "../helpers/types";
 import { firebase, FieldValue } from "../lib/firebase";
 
 export const doesUsernameExist = async (username: string): Promise<boolean> => {
@@ -11,7 +12,7 @@ export const doesUsernameExist = async (username: string): Promise<boolean> => {
   return result.docs.length > 0;
 };
 
-export const getUserByUsername = async (username: string): Promise<any[]> => {
+export const getUserByUsername = async (username: string): Promise<User[]> => {
   const result = await firebase
     .firestore()
     .collection("users")
@@ -40,7 +41,7 @@ export const getUserByUserId = async (userId: string): Promise<any[]> => {
 };
 
 export const getSuggestedProfiles = async (
-  userId: string, following: number[]
+  userId: string, following: string[]
 ): Promise<any[]> => {
 
   let query: any = firebase.firestore().collection("users");

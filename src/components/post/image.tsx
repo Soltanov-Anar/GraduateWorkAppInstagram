@@ -9,7 +9,7 @@ const Image: FC<ImageProps> = (
   { src, caption }: ImageProps
 ) => {
 
-  return <img src={src} alt={caption} />;
+  return <img className="contain w-full" src={src} alt={caption} />;
 };
 
 Image.displayName = "Image";

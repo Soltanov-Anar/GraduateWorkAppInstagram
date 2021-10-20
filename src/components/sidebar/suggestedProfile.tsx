@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, SyntheticEvent, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   getUserByUserId,
@@ -38,6 +38,12 @@ const SuggestedProfile: FC<SuggestedProfileProps> = ({
     setActiveUser(user);
   };
 
+  const imageOnErrorHandler = (
+    event: SyntheticEvent<HTMLImageElement, Event>
+  ) => {
+    event.currentTarget.src = DEFAULT_IMAGE_PATH;
+  };
+
   return !followed ? (
     <div className="flex flex-row items-center align-items justify-between">
       <div className="flex items-center justify-between">
@@ -45,9 +51,7 @@ const SuggestedProfile: FC<SuggestedProfileProps> = ({
           className="rounded-full w-8 flex mr-3"
           src={`/images/avatars/${username}.jpg`}
           alt={`avatar ${username}`}
-          onError={(e: any) => {
-            e.target.src = DEFAULT_IMAGE_PATH;
-          }}
+          onError={imageOnErrorHandler}
         />
         <Link to={`/p/${username}`}>
           <p className="font-bold text-sm">

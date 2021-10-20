@@ -6,31 +6,36 @@ import Footer from "./footer";
 import Comments from "./comments";
 import { PostProps } from "../../helpers/types";
 
-const Post: FC<PostProps> = ({ content }: PostProps) => {
+const Post: FC<PostProps> = ({
+  content: {
+    username, imageSrc, caption, docId, likes, userLikedPhoto, comments, dateCreated
+  } }: PostProps) => {
 
-  const commentInput = useRef<any>(null);
+  const commentInput = useRef<HTMLInputElement>({} as HTMLInputElement);
   const handleFocus = () =>
     commentInput?.current?.focus && commentInput.current.focus();
 
   return (
     <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
-      <Header username={content.username} />
+      <Header username={username || ""} />
 
-      <Image src={content.imageSrc} caption={content.caption} />
+      <div className="bg-black-faded">
+        <Image src={imageSrc} caption={caption} />
+      </div>
 
       <Action
-        docId={content.docId}
-        totalLikes={content.likes.length}
-        likedPhoto={content.userLikedPhoto}
+        docId={docId}
+        totalLikes={likes.length}
+        likedPhoto={userLikedPhoto || false}
         handleFocus={handleFocus}
       />
 
-      <Footer caption={content.caption} username={content.username} />
+      <Footer caption={caption} username={username || ""} />
 
       <Comments
-        docId={content.docId}
-        comments={content.comments}
-        posted={content.dateCreated}
+        docId={docId}
+        comments={comments}
+        posted={dateCreated}
         commentInput={commentInput}
       />
 

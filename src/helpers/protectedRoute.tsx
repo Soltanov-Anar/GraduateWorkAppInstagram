@@ -1,9 +1,10 @@
 import { FC, cloneElement } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { AppRoutes } from "../constants/contants";
+import Firebase from "firebase/compat/app";
 
 type ProtectedRouteType = {
-  user?: any,
+  user?: Firebase.User,
   path: string,
   exact: boolean
   children: any,

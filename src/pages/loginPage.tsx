@@ -21,10 +21,12 @@ const LoginPage: FC = () => {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
       history.push(AppRoutes.DASHBOARD);
-    } catch (error: any) {
+    } catch (error: unknown) {
       setEmail("");
       setPassword("");
-      setError(error.message);
+      if (error instanceof Error) {
+        setError(error.message);
+      }
     }
   };
 

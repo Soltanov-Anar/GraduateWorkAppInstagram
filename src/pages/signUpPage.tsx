@@ -48,11 +48,13 @@ const SignUpPage: FC = () => {
 
         return history.push(AppRoutes.DASHBOARD);
 
-      } catch (error: any) {
+      } catch (error: unknown) {
         setFullName("");
         setEmail("");
         setPassword("");
-        setError(error.message);
+        if (error instanceof Error) {
+          setError(error.message);
+        }
       }
     } else {
       setUsername("");
