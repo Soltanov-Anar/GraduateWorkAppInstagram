@@ -134,15 +134,20 @@ export const getUserPhotosByUserId = async (
   userId: string
 ): Promise<any[]> => {
 
+  const user = await getUserByUserId(userId);
+  const { username }: any = user[0];
+
   const result = await firebase
     .firestore()
     .collection("photos")
     .where("userId", "==", userId)
     .get();
 
+
   const photos = result.docs.map((photo) => ({
     ...photo.data(),
-    docId: photo.id
+    docId: photo.id,
+    username: username
   }));
 
   return photos;

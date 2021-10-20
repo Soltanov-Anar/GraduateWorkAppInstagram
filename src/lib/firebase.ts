@@ -1,6 +1,7 @@
 import Firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { seedDatabase, removePhoto } from "../seed";
 
 type configType = {
   apiKey: string,
@@ -22,6 +23,9 @@ const config: configType = {
 
 const firebase: Firebase.app.App = Firebase.initializeApp(config);
 const { FieldValue } = Firebase.firestore;
+
+//seedDatabase(firebase);
+//removePhoto(firebase);
 
 export {
   firebase,

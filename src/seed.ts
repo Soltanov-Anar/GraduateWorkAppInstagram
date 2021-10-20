@@ -69,4 +69,29 @@ export function seedDatabase(firebase: any): void {
         dateCreated: Date.now()
       });
   }
+
+  // for (let i = 1; i <= 6; ++i) {
+  //   firebase
+  //     .firestore()
+  //     .collection("photos")
+  //     .add({
+  //       photoId: i,
+  //       userId: "4",
+  //       imageSrc: `https://source.unsplash.com/random/${i}`,
+  //       caption: "Saint George and the Dragon",
+  //       likes: [],
+  //       comments: [],
+  //       userLatitude: "40.7128°",
+  //       userLongitude: "74.0060°",
+  //       dateCreated: Date.now()
+  //     });
+  // }
+}
+
+export const removePhoto = (firebase: any) => {
+  firebase
+    .firestore()
+    .collection("photos")
+    .doc("loEk9xkBOo9FR51HvLse")
+    .delete()
 }

@@ -49,7 +49,7 @@ const Profile: FC<ProfileType> = (
         setFollowerCount={dispatch}
       />
 
-      <Photos photos={photosCollection} />
+      {photosCollection.length > 0 && <Photos photos={photosCollection} />}
     </>
   );
 };

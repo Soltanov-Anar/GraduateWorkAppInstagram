@@ -29,13 +29,13 @@ export type ProfileProps = {
   username: string
 }
 
-export type ProfileState = {    
+export type ProfileState = {
   profile: any,
   photosCollection: any[],
   followerCount: number
 }
 
-export type HeaderProfile = {    
+export type HeaderProfile = {
   docId: string,
   userId: string,
   fullName: string,
@@ -45,14 +45,17 @@ export type HeaderProfile = {
 }
 
 export type PhotoType = {
-  caption: string,
-  comments: CommentType[],
-  dateCreated: number,
-  docId: string,
-  imageSrc: string,
-  likes: string[],
-  photoId: number,
-  userId: string,
-  userLatitude: string,
-  userLongitude: string
+  content: {
+    caption: string,
+    comments: CommentType[],
+    dateCreated: number,
+    docId: string,
+    imageSrc: string,
+    likes: string[],
+    photoId: number,
+    userId: string,
+    userLatitude: string,
+    userLongitude: string,
+    username?: string
+  }
 }
