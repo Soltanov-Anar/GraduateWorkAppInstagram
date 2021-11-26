@@ -23,7 +23,7 @@ const ProfilePage: FC = () => {
         setUser(user);
         document.title = `${user.username} - Instagram`;
       } else {
-        history.push(AppRoutes.NOT_FOUND)
+        history.push(AppRoutes.NOT_FOUND);
       }
     };
 

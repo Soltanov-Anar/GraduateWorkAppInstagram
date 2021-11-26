@@ -77,7 +77,7 @@ export function seedDatabase(firebase: any): void {
   //     .add({
   //       photoId: i,
   //       userId: "4",
-  //       imageSrc: `https://source.unsplash.com/random/${i}`,
+  //       imageSrc: `https://source.unsplash.com/random/${Math.round(10 - 0.5 + Math.random() * (150 - 10 + 1))}`,
   //       caption: "Saint George and the Dragon",
   //       likes: [],
   //       comments: [],
@@ -88,7 +88,7 @@ export function seedDatabase(firebase: any): void {
   // }
 }
 
-export const removePhoto = (firebase: any) => {
+export const removePhoto = (firebase: any): void => {
   firebase
     .firestore()
     .collection("photos")

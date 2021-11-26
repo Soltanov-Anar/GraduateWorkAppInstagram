@@ -32,6 +32,7 @@ const Header: FC = () => {
                   src="/images/logo.png"
                   alt="Instagram"
                   className="mt-2 w-6/12"
+                  onError={imageOnErrorHandler}
                 />
               </Link>
             </h1>

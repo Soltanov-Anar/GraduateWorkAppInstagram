@@ -47,13 +47,13 @@ const SuggestedProfile: FC<SuggestedProfileProps> = ({
   return !followed ? (
     <div className="flex flex-row items-center align-items justify-between">
       <div className="flex items-center justify-between">
-        <img
-          className="rounded-full w-8 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
-          alt={`avatar ${username}`}
-          onError={imageOnErrorHandler}
-        />
-        <Link to={`/p/${username}`}>
+        <Link to={`/p/${username}`} className="inline-flex items-center">
+          <img
+            className="rounded-full w-8 flex mr-3"
+            src={`/images/avatars/${username}.jpg`}
+            alt={`avatar ${username}`}
+            onError={imageOnErrorHandler}
+          />
           <p className="font-bold text-sm">
             {username}
           </p>

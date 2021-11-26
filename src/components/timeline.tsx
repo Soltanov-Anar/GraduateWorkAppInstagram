@@ -10,7 +10,6 @@ const Timeline: FC = () => {
   const { user } = useContext(LoggedInUserContext);
 
   const { following = {} } = user;
-  console.log(following);
 
   const { photos } = usePhotos(user);
 

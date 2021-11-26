@@ -6,7 +6,7 @@ import Timeline from "../components/timeline";
 import useUser from "../hooks/useUser";
 import LoggedInUserContext from "../context/loggedInUser";
 import { UseUserType } from "../helpers/types";
-
+import NotFoundPage from "./notFoundPage";
 
 type DashboardPageProps = {
   user: Firebase.User
@@ -22,7 +22,7 @@ const DashboardPage: FC<DashboardPageProps> = (
     document.title = "Instagram";
   }, []);
 
-  return (
+  return user.userId ? (
     <LoggedInUserContext.Provider value={{ user, setActiveUser }}>
       <div className="bg-gray-background">
         <Header />
@@ -32,7 +32,7 @@ const DashboardPage: FC<DashboardPageProps> = (
         </div>
       </div>
     </LoggedInUserContext.Provider>
-  );
+  ) : <NotFoundPage />;
 };
 
 DashboardPage.displayName = "DashboardPage";
